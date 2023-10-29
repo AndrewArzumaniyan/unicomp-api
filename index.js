@@ -12,6 +12,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
 
+// Добавьте middleware для обработки CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Замените * на домен вашего фронтенда, если нужно разрешить доступ только с определенных доменов
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
 mongoose
   .connect(MONGO_URL)
   .then(() => console.log('Connected to DB'))
